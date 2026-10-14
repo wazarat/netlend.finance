@@ -103,7 +103,7 @@ Done
 - SDK: ABIs for FixedTermMarket / NetlendToken / StakingRewards / RevenueSplitter, `AddressBook` types for
   `fixed` and `token`.
 - canhav proposals (propose mode, accept in Studio → Agent changes): template decisions `9b346e8d…`, features
-  `d99cacb5…`, ideas `4c18793a…`, architecture `02b1191c…`, stage `testnet_deployed` + `testnetContracts` and the build-step ticks (see Agent changes).
+  `d99cacb5…`, ideas `4c18793a…`, architecture `02b1191c…`, stage `testnet_deployed` + `testnetContracts` `1318c1b3…`, 19 build-step ticks + 2 custom steps `058f5717…`, and 20 custom steps for open decisions and pages to build `fce5a030…`. All still **proposed**: the studio shows 0/30 until they are accepted.
 - canhav token: the MCP cannot create or link a token design. **Owner action:** start a token design on the project
   page in the studio (name `netlend`, ticker `NETLEND`), then the agent pushes `docs/token-netlend.md` into it with
   `update_linked_token_design`.
