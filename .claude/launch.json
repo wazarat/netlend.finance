@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "web-testnet",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["NEXT_PUBLIC_CHAIN=46630", "pnpm", "--filter", "@netlend/web", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "web-local",
+      "runtimeExecutable": "env",
+      "runtimeArgs": ["NEXT_PUBLIC_CHAIN=local", "NEXT_PUBLIC_RPC_URL=http://127.0.0.1:8545", "pnpm", "--filter", "@netlend/web", "dev"],
+      "port": 3000
+    }
+  ]
+}
