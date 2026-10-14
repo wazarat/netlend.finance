@@ -13,13 +13,13 @@ saved in `apps/web/design/` (`BRAND.md`, `BUILD.md`, `reference.css`).
 
 | Path | What |
 |---|---|
-| `contracts/` | Foundry. Upstream Morpho Blue / MetaMorpho / Bundler3 / oracles / IRM (GPL-2.0) as submodules, plus our mocks, oracles, staking, NFT escrow, fixed-term market, watchdog and credit registry. |
+| `contracts/` | Foundry. Upstream Morpho Blue / MetaMorpho / Bundler3 / oracles / IRM (GPL-2.0) as submodules, plus ours: `fixed/FixedTermMarket` (Fixed), `token/NetlendToken` + `staking/StakingRewards` + `staking/RevenueSplitter` (Stake), `guard/MarketGuard` (watchdog), `oracles/UniV3Twap*`, `mocks/*`. Planned: NFT escrow, credit registry. |
 | `packages/sdk/` | Chain definition, `addresses.46630.json` / `addresses.local.json`, `markets.json` registry, generated ABIs, and the pure viem readers (`readMarkets`, `readVaults`, `computeStats`), formatting and health-factor maths shared by the web app and the future MCP server. |
 | `apps/web/` | Next.js 16 app: marketing landing, `/earn`, `/borrow`, `/borrow/[key]`, `/portfolio`, `/dev/components`, and the read API as route handlers (`/api/markets`, `/api/markets/:key`, `/api/v2/vaults`, `/api/stats`, `/api/addresses`, `/api/health`). Deploys to Vercel with root directory `apps/web`. |
 | `apps/mcp/` | (planned) Streamable-HTTP MCP server: read tools + build-unsigned-tx tools. Never signs. |
 | `services/` | (planned) Watchdog (oracle divergence → cap 0), liquidator, credit-score indexer, merkle publisher. |
-| `scripts/` | `rehearse-anvil.sh` (full deploy on Anvil → `addresses.local.json`), `smoke-anvil.sh`, `export-abis.sh`. |
-| `docs/` | `progress.md`, `runbook-testnet.md`, `longbow-ledger.md` (what we mirror and why). |
+| `scripts/` | `rehearse-anvil.sh` (full deploy on Anvil → `addresses.local.json`), `smoke-anvil.sh`, `deploy-testnet.sh`, `verify-testnet.sh`, `export-abis.sh`. |
+| `docs/` | `progress.md`, `runbook-testnet.md`, `longbow-ledger.md` (what we mirror and why), `fixed-term-markets.md` (Fixed design + canhav worksheet), `token-netlend.md` (NETLEND token design). |
 
 ## Network
 

@@ -205,5 +205,54 @@
   "bundler": {},
   "incentives": {},
   "credit": {},
-  "fixed": {}
+  "fixed": {
+    "markets": {
+      "TSLA-30D": {
+        "id": "0xbeca9e74c7aea27441eaddcc76f3c5dc7c9a373b717f68d52464a2f0cd1a0542",
+        "market": "TSLA",
+        "collateralToken": "0x0B306BF915C4d645ff596e518fAf3F9669b97016",
+        "oracle": "0x8c145461BC234D913A9682E8D5A3dd596ceBda78",
+        "lltv": 625000000000000000,
+        "maturity": 1794614400,
+        "seedOffer": 1,
+        "seedPrice": 990000000000000000
+      },
+      "ETH-30D": {
+        "id": "0x981c9d936a754522bba77c6f2fc37eb04befd044aad770b8c9a47c4f6bd53afd",
+        "market": "ETH",
+        "collateralToken": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        "oracle": "0xe5705EdeEEdcA71d7F59Cf952af2c16d8b5D72f1",
+        "lltv": 770000000000000000,
+        "maturity": 1794614400,
+        "seedOffer": 2,
+        "seedPrice": 990000000000000000
+      },
+      "SPY-90D": {
+        "id": "0x0fce4a1ba508946c6e7bb1a11a966bf8f688a22f7ebd6ec2c5b935f0708c726c",
+        "market": "SPY",
+        "collateralToken": "0x59b670e9fA9D0A427751Af201D676719a970857b",
+        "oracle": "0xCD8A4cdBc20bfec779B2Bb9E185d4312a760cAeC",
+        "lltv": 625000000000000000,
+        "maturity": 1799798400,
+        "seedOffer": 3,
+        "seedPrice": 975000000000000000
+      },
+      "SGOV-90D": {
+        "id": "0x600813ef2e68a5f2bdb2ba47fd81408e2dee5765c879b9c28f4b7afeac4eabf6",
+        "market": "SGOV",
+        "collateralToken": "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
+        "oracle": "0xBE814406a788491255Bee8694A28621c8fDb9D45",
+        "lltv": 860000000000000000,
+        "maturity": 1799798400,
+        "seedOffer": 4,
+        "seedPrice": 985000000000000000
+      }
+    },
+    "market": "0x071586BA1b380B00B793Cc336fe01106B0BFbE6D"
+  },
+  "token": {
+    "netlend": "0xD5724171C2b7f0AA717a324626050BD05767e2C6",
+    "staking": "0x9385556B571ab92bf6dC9a0DbD75429Dd4d56F91",
+    "splitter": "0x162700d1613DfEC978032A909DE02643bC55df1A"
+  }
 }

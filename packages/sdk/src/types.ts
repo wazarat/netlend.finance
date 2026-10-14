@@ -37,7 +37,22 @@ export type AddressBook = {
   bundler?: Record<string, Address>;
   incentives?: Record<string, Address>;
   credit?: Record<string, Address>;
-  fixed?: Record<string, Address>;
+  /** Deploy06_Fixed: the FixedTermMarket contract and one entry per fixed-term market. */
+  fixed?: { market?: Address; markets?: Record<string, FixedMarketBookEntry> };
+  /** Deploy07_Token: NETLEND stand-in, StakingRewards and the RevenueSplitter (vault fee recipient). */
+  token?: { netlend?: Address; staking?: Address; splitter?: Address };
+};
+
+/** One fixed-term market as written by Deploy06_Fixed. `market` is the Deploy04 key whose collateral and oracle it reuses. */
+export type FixedMarketBookEntry = {
+  id: Hex32;
+  market: string;
+  collateralToken: Address;
+  oracle: Address;
+  lltv: string;
+  maturity: string;
+  seedOffer: string;
+  seedPrice: string;
 };
 
 export type RegistryMarket = {

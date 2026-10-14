@@ -6,6 +6,10 @@ import IOracleJson from "../abis/IOracle.json" with { type: "json" };
 import FaucetJson from "../abis/Faucet.json" with { type: "json" };
 import IPublicAllocatorJson from "../abis/IPublicAllocator.json" with { type: "json" };
 import MarketGuardJson from "../abis/MarketGuard.json" with { type: "json" };
+import FixedTermMarketJson from "../abis/FixedTermMarket.json" with { type: "json" };
+import NetlendTokenJson from "../abis/NetlendToken.json" with { type: "json" };
+import StakingRewardsJson from "../abis/StakingRewards.json" with { type: "json" };
+import RevenueSplitterJson from "../abis/RevenueSplitter.json" with { type: "json" };
 
 /** Full ABIs exported by scripts/export-abis.sh (used by the server-side readers). */
 export const IMorpho = IMorphoJson as readonly unknown[];
@@ -15,6 +19,10 @@ export const IOracle = IOracleJson as readonly unknown[];
 export const Faucet = FaucetJson as readonly unknown[];
 export const IPublicAllocator = IPublicAllocatorJson as readonly unknown[];
 export const MarketGuard = MarketGuardJson as readonly unknown[];
+export const FixedTermMarket = FixedTermMarketJson as readonly unknown[];
+export const NetlendToken = NetlendTokenJson as readonly unknown[];
+export const StakingRewards = StakingRewardsJson as readonly unknown[];
+export const RevenueSplitter = RevenueSplitterJson as readonly unknown[];
 
 /** Minimal typed fragments for the browser (wagmi hooks infer argument types from these). */
 export const erc20Abi = parseAbi([

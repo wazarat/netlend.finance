@@ -36,4 +36,17 @@ send "$MORPHO" 'borrow((address,address,address,address,uint256),uint256,uint256
 echo "   USDG after borrow=$(bal "$USDG" "$ME")"
 echo "4. oracle TSLA/USDG price (1e36-scaled) = $(cast call "$ORC" 'price()(uint256)' --rpc-url "$RPC")"
 echo "5. withdrawable from Core now = $(cast call "$CORE" 'maxWithdraw(address)(uint256)' "$ME" --rpc-url "$RPC")"
+echo "6. fixed: post 2 rTSLA into TSLA-30D, fill the seed offer for 400 USDG face"
+FX=$(addr fixed.market); FXID=$(addr fixed.markets.TSLA-30D.id); SEED=$(addr fixed.markets.TSLA-30D.seedOffer)
+send "$TSLA" 'approve(address,uint256)' "$FX" 2000000000000000000
+send "$FX" 'supplyCollateral(bytes32,uint256,address)' "$FXID" 2000000000000000000 "$ME"
+send "$FX" 'borrow(uint256,uint256,address)' "$SEED" 400000000 "$ME"
+echo "   USDG after fixed borrow=$(bal "$USDG" "$ME")  position=$(cast call "$FX" 'position(bytes32,address)(uint128,uint128)' "$FXID" "$ME" --rpc-url "$RPC" | tr '\n' ' ')"
+echo "   implied APR of seed offer (1e18) = $(cast call "$FX" 'impliedApr(uint256,uint256)(uint256)' "$(addr fixed.markets.TSLA-30D.seedPrice)" "$(addr fixed.markets.TSLA-30D.maturity)" --rpc-url "$RPC")"
+echo "7. stake: 500 NETLEND from the faucet drip into StakingRewards"
+NL=$(addr token.netlend); STK=$(addr token.staking)
+echo "   NETLEND balance=$(bal "$NL" "$ME")"
+send "$NL" 'approve(address,uint256)' "$STK" 500000000000000000000
+send "$STK" 'stake(uint256)' 500000000000000000000
+echo "   staked=$(bal "$STK" "$ME")  rewardRate(USDG/s)=$(cast call "$STK" 'rewardRate()(uint256)' --rpc-url "$RPC")  periodFinish=$(cast call "$STK" 'periodFinish()(uint256)' --rpc-url "$RPC")"
 echo "smoke ok"

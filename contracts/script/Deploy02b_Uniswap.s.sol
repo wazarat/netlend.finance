@@ -137,11 +137,12 @@ contract Deploy02b_Uniswap is AddressBook {
 
     function _seedWethPool(Ctx memory c) internal {
         if (_get("uniswap.pools.WETH-USDG") != address(0)) return;
-        // Needs testnet ETH on the deployer: wraps 0.5 ETH against 1,220 USDG (ETH = 2,440).
-        uint256 ethAmt = 0.5 ether;
-        require(c.deployer.balance > ethAmt + 0.05 ether, "fund deployer with >0.55 testnet ETH");
+        // Wraps WETH_SEED_WEI (default 0.002 ETH, a faucet-sized seed) against USDG at the Deploy02 feed price
+        // (ETH = 2,440). Raise it when the deployer is better funded; gas on 46630 is ~0.01 gwei.
+        uint256 ethAmt = vm.envOr("WETH_SEED_WEI", uint256(0.002 ether));
+        require(c.deployer.balance > ethAmt + 0.002 ether, "fund deployer: balance must exceed WETH_SEED_WEI + gas");
         IWETHMin(c.weth).deposit{value: ethAmt}();
-        uint256 usdgAmt = 1_220e6;
+        uint256 usdgAmt = ethAmt * 2_440e6 / 1 ether;
         MockUSDG(c.usdg).mint(c.deployer, usdgAmt);
         _put("uniswap.pools.WETH-USDG", _seed(c.npm, c.factory, c.weth, ethAmt, c.usdg, usdgAmt));
     }

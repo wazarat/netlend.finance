@@ -14,7 +14,7 @@ sleep 2
 python3 -I - <<PY
 import json
 d=json.load(open("$ROOT/packages/sdk/addresses.46630.json"))
-d["chainId"]=31337; d["chainName"]="anvil"; d["known"]={"weth":"0x0000000000000000000000000000000000000000"}
+d["chainId"]=31337; d["chainName"]="anvil"; d["known"]={"weth":"0x0000000000000000000000000000000000000000"}; d["fixed"]={"markets":{}}; d["token"]={}
 json.dump(d,open("$ROOT/packages/sdk/addresses.local.json","w"),indent=2)
 PY
 cd "$ROOT/contracts"
@@ -28,5 +28,7 @@ cast rpc evm_increaseTime 1900 --rpc-url "$RPC" >/dev/null; cast rpc evm_mine --
 run Deploy03_Oracles
 run Deploy04_Markets
 run Deploy05_Vaults
+run Deploy06_Fixed
+run Deploy07_Token
 echo "== address book"
-python3 -I -c "import json; d=json.load(open('$ROOT/packages/sdk/addresses.local.json')); print('core', d['core']); print('vaults', d['vaults']); print('markets', list(d['markets'].keys()))"
+python3 -I -c "import json; d=json.load(open('$ROOT/packages/sdk/addresses.local.json')); print('core', d['core']); print('vaults', d['vaults']); print('markets', list(d['markets'].keys())); print('fixed', d['fixed']['market'], list(d['fixed']['markets'].keys())); print('token', d['token'])"

@@ -15,3 +15,5 @@ tools/
 next-env.d.ts
 *.tsbuildinfo
 .anvil-logs/
+.testnet-logs/
+packages/sdk/*.bak

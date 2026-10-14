@@ -15,6 +15,8 @@ wanted = {
   "Faucet": "Faucet.sol/Faucet.json", "MockNFT": "MockNFT.sol/MockNFT.json",
   "UniV3TwapOracle": "UniV3TwapOracle.sol/UniV3TwapOracle.json", "MarketGuard": "MarketGuard.sol/MarketGuard.json",
   "IPublicAllocator": "IPublicAllocator.sol/IPublicAllocator.json",
+  "FixedTermMarket": "FixedTermMarket.sol/FixedTermMarket.json", "NetlendToken": "NetlendToken.sol/NetlendToken.json",
+  "StakingRewards": "StakingRewards.sol/StakingRewards.json", "RevenueSplitter": "RevenueSplitter.sol/RevenueSplitter.json",
 }
 for name, rel in wanted.items():
     p = out / rel

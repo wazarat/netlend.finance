@@ -11,18 +11,253 @@
     "createX": "0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed",
     "erc6551Registry": "0x000000006551c19487814612e58FE06813775758"
   },
-  "core": {},
-  "substitutes": {
-    "stocks": {},
-    "feeds": {},
-    "memes": {}
+  "core": {
+    "morpho": "0x0B18F1Ee5a4ecdeA15ec8ccD8cB98BA79728eC36",
+    "adaptiveCurveIrm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+    "chainlinkOracleV2Factory": "0x543445a808d54B4af52AE891A339B7B205e0ACCD",
+    "metaMorphoFactory": "0x16448D3860E39a56DDf5365f145d1e17Bb2D6eC6",
+    "publicAllocator": "0xb460C75856b868Efaab0Fe8b3765b3595632394b",
+    "chainId": 46630
   },
-  "uniswap": {},
-  "oracles": {},
-  "markets": {},
-  "vaults": {},
+  "substitutes": {
+    "stocks": {
+      "rTSLA": "0xDE8F4bE2217FF7DB3640Fa48Dfb68a7A40B7E97C",
+      "rNVDA": "0xb5bb62Ede43A4510107250348412456c51168315",
+      "rSPY": "0x8AA9061c1f9F9e5D0062181e581B025896db9f72",
+      "rAAPL": "0xF47379304b3B6AadEa7aC4f1b0376e8af8e49d2A",
+      "rSGOV": "0x6cdC95079131B067fF5760915CA197B2bDb8e704",
+      "rGLD": "0x98CfF24F6A85f90b54FBDdD6D9f83927Bb59F44E"
+    },
+    "feeds": {
+      "USDG": "0x70e19f4cbF741885574Bc973Adc13249Ae851D92",
+      "rTSLA": "0xD66f8Cb8EBB221aed15d7434C28d11A0055241aE",
+      "rNVDA": "0xB7D81C14a59e0f98E5388C5b7Dbb5f42b3Ff89CA",
+      "rSPY": "0x2F57C8d36Cc95AfE1b370438222beD0Dd9d45690",
+      "rAAPL": "0xb265A845e8dc7a168489224959495b85C45F3e7c",
+      "rSGOV": "0x82537bECaA20f956a3739cC6f84dd3A237431914",
+      "rGLD": "0x0b6370C9ea1d8d04484d2A9A3C246DfA922941A8",
+      "WETH": "0x5E7b7Bb841f7bC162D9B246402Bce3d100a5Bd9A"
+    },
+    "memes": {
+      "mPONS": "0xf224026768229262458c987F59aAafa2333313a3",
+      "mCAT": "0xc51680e5b87005F7ce1C751680a8De938388786B"
+    },
+    "usdg": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+    "rawFeeds": {
+      "rTSLA": "0x1abf97d2d853d97bfd16262B547F07C85F129Cf5",
+      "rNVDA": "0xE0A917EF5B7f74711A455481494718Dc7d6C7DE9",
+      "rSPY": "0xD6a151B8D7A577D4Fdf003FAe4326676A047A7d6",
+      "rAAPL": "0x7e0109f282818b7c3951921B65547545380FA9e7",
+      "rSGOV": "0x5C46DA700772448E14bB29CC097e6886015CB93e",
+      "rGLD": "0xaD8A3f18Ce33467dCA6ce20B6a7A73B3b576be0B",
+      "WETH": "0x5E7b7Bb841f7bC162D9B246402Bce3d100a5Bd9A"
+    },
+    "nfts": {
+      "punks": "0xB751452ced8464D47CcDB321b64f72F88BBCBdB0",
+      "stonkbrokers": "0x41e2751e547a14a1792116d9a92e2E250d745742"
+    },
+    "faucet": "0x88e0281B2448d15Ac151072A70237a402CC84d7c"
+  },
+  "uniswap": {
+    "factory": "0xF3977C47bbD8d5710e731fAE339289dEe5fC4150",
+    "swapRouter": "0x49F086950c8CeB5D14218254e2bA2DEA59EE9146",
+    "positionManager": "0x471ecD93BBe44d45b9D2c96C8D508aa791839BFd",
+    "quoterV2": "0x472e2E16F854Ce0C4c97B4c6c7cc7A3B346Fc0d7",
+    "pools": {
+      "rTSLA-USDG": "0xdcD5fC818E55e214766dCB63FBFdD91F182456F9",
+      "rNVDA-USDG": "0x43EfE107bC06e8Da954999AA0286F545467Fd326",
+      "rSPY-USDG": "0x667E688E428895939761B46E601263eFD5eC146B",
+      "rAAPL-USDG": "0x1a619F2f29F569610F24D014202e9D94b4a32359",
+      "rSGOV-USDG": "0xEfAbf9F29a45346cA40B1A210C8B4680c08ea388",
+      "rGLD-USDG": "0x6512fB45c5e67C781231c5083b2797e3af009Fc5",
+      "mPONS-USDG": "0x258EAE2B77D92C72d5e6E5c3fda317f647a41d1f",
+      "mCAT-USDG": "0x08479d425b524d856116Ebf34c827C7D62E7770A",
+      "WETH-USDG": "0x4dE08298955995D91C70FACa161910f91ECA3E7D"
+    }
+  },
+  "oracles": {
+    "twapFactory": "0x136C7029052CffAd981A9b6C8e5376c1D7922A0f",
+    "ETH": "0xa46E172249a1129d01EA356F581869c2001B0413",
+    "TSLA": "0x124FC7822fc7dd48322b2F74aDEe2F1ADEF6d860",
+    "NVDA": "0x0A992E07D6dE02C5DED5d4bA65703a219ff7DAE0",
+    "SPY": "0xc513394e6516E553Ee7Cf1aEa6CdF879e6Fb0649",
+    "AAPL": "0x09316A38C0307a329A2A327cFF92aC7c4773E252",
+    "SGOV": "0x390F044c7e02Cb7ba32a1CA4793421A5428a154d",
+    "GLD": "0x64e5829955e8F35470A10240C1dEb495761E3f2A",
+    "PONS": "0x65eAAD0123348AeE6751cE20E2c4F28aE59449c1",
+    "CAT": "0x553bB7eC06602E5C0231390392C568E2a9346240",
+    "SPY-WETH": "0x0Cab7bD21f842a193AE31a9d1A297976fD200B9c",
+    "SHORT-ETH": "0xD03c6efA5925bBE6342693e97500eA0594d104Cd"
+  },
+  "markets": {
+    "ETH": {
+      "id": "0x352f318bd4c650ad4853f339a860827e0c456c29e2c51c9e0187501e04b4b4d9",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+      "oracle": "0xa46E172249a1129d01EA356F581869c2001B0413",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 770000000000000000,
+      "cap": 250000000000,
+      "category": "Crypto"
+    },
+    "TSLA": {
+      "id": "0xe35fc5fc2fd9a7d351581bef25ed7603cd0295140b0078693cd0a685978e5f15",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0xDE8F4bE2217FF7DB3640Fa48Dfb68a7A40B7E97C",
+      "oracle": "0x124FC7822fc7dd48322b2F74aDEe2F1ADEF6d860",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 100000000000,
+      "category": "Stocks"
+    },
+    "NVDA": {
+      "id": "0x5940870565e1314fff25ed7ce140c28137dfeb98647ff8d3331d6a68c6c03a91",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0xb5bb62Ede43A4510107250348412456c51168315",
+      "oracle": "0x0A992E07D6dE02C5DED5d4bA65703a219ff7DAE0",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 100000000000,
+      "category": "Stocks"
+    },
+    "SPY": {
+      "id": "0xfaabe8243ae8bde19f27f645deb531849d4311d46bac329727fa8503157161dc",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0x8AA9061c1f9F9e5D0062181e581B025896db9f72",
+      "oracle": "0xc513394e6516E553Ee7Cf1aEa6CdF879e6Fb0649",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 100000000000,
+      "category": "Stocks"
+    },
+    "AAPL": {
+      "id": "0xd3bbda2e7745561d685316346a0bf8be8e192b187fd08b04dce038532f2d7840",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0xF47379304b3B6AadEa7aC4f1b0376e8af8e49d2A",
+      "oracle": "0x09316A38C0307a329A2A327cFF92aC7c4773E252",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 50000000000,
+      "category": "Stocks"
+    },
+    "SGOV": {
+      "id": "0x921f4b4ab495ed28bdbfa89eb472638e3ce0e2073f3ec45c524699cecc3ef9a0",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0x6cdC95079131B067fF5760915CA197B2bDb8e704",
+      "oracle": "0x390F044c7e02Cb7ba32a1CA4793421A5428a154d",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 860000000000000000,
+      "cap": 100000000000,
+      "category": "RWA"
+    },
+    "GLD": {
+      "id": "0xbc8e3fdbaa4a1f5744d78aeb4fa13bb1e0a35c3d7e1a430e5dafaa6952b0d82e",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0x98CfF24F6A85f90b54FBDdD6D9f83927Bb59F44E",
+      "oracle": "0x64e5829955e8F35470A10240C1dEb495761E3f2A",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 50000000000,
+      "category": "RWA"
+    },
+    "PONS": {
+      "id": "0xafc0bc1bfe539492f1b5b6b7a1e2e4a71ef84612ba2a8f5bbdc2552dd0c96928",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0xf224026768229262458c987F59aAafa2333313a3",
+      "oracle": "0x65eAAD0123348AeE6751cE20E2c4F28aE59449c1",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 385000000000000000,
+      "cap": 25000000000,
+      "category": "Memes"
+    },
+    "CAT": {
+      "id": "0xb815ad84cac3ac0bca0c776fce3cb462fa1076d0119644df446946bbea7ac5d4",
+      "loanToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "collateralToken": "0xc51680e5b87005F7ce1C751680a8De938388786B",
+      "oracle": "0x553bB7eC06602E5C0231390392C568E2a9346240",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 385000000000000000,
+      "cap": 10000000000,
+      "category": "Memes"
+    },
+    "SPY-WETH": {
+      "id": "0x26fcfba6c385b48812cb149040ff323cae28be403332efdbeb069203c828d08b",
+      "loanToken": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+      "collateralToken": "0x8AA9061c1f9F9e5D0062181e581B025896db9f72",
+      "oracle": "0x0Cab7bD21f842a193AE31a9d1A297976fD200B9c",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 385000000000000000,
+      "cap": 20000000000000000000,
+      "category": "Stocks"
+    },
+    "SHORT-ETH": {
+      "id": "0x7085f6ad892ad875e9a6efb5d826b7a1fc3c35807f5a6758f2a5289f4bdb215d",
+      "loanToken": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+      "collateralToken": "0x5BDD84fb35E40A894C919d8AC3A48649214d40D4",
+      "oracle": "0xD03c6efA5925bBE6342693e97500eA0594d104Cd",
+      "irm": "0x8aA89FCe7DE025607B5240DcBc66A79f4240f9DC",
+      "lltv": 625000000000000000,
+      "cap": 20000000000000000000,
+      "category": "Short"
+    }
+  },
+  "vaults": {
+    "marketGuard": "0x945970B4f524A8138E095865ae995929a8Fbe60C",
+    "core": "0x99678594A9Ab6f3E66DDBa72D8f74D8C7691FB51",
+    "frontier": "0xf5C96a392a90ccA05237751cF1214d0Fc386614d",
+    "eth": "0xb8B4D09D084b32387f04081fb028a2F059B62fbf"
+  },
   "bundler": {},
   "incentives": {},
   "credit": {},
-  "fixed": {}
+  "fixed": {
+    "markets": {
+      "TSLA-30D": {
+        "id": "0xd6b33694b5f8913056b465ce1015e6ca063974ae81d11e9c89c33d38d636112f",
+        "market": "TSLA",
+        "collateralToken": "0xDE8F4bE2217FF7DB3640Fa48Dfb68a7A40B7E97C",
+        "oracle": "0x124FC7822fc7dd48322b2F74aDEe2F1ADEF6d860",
+        "lltv": 625000000000000000,
+        "maturity": 1794614400,
+        "seedOffer": 1,
+        "seedPrice": 990000000000000000
+      },
+      "ETH-30D": {
+        "id": "0x47dccbaa4e983367e2d1e48663bca93bb94f60491e94a3e429d46ef2654a78eb",
+        "market": "ETH",
+        "collateralToken": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+        "oracle": "0xa46E172249a1129d01EA356F581869c2001B0413",
+        "lltv": 770000000000000000,
+        "maturity": 1794614400,
+        "seedOffer": 2,
+        "seedPrice": 990000000000000000
+      },
+      "SPY-90D": {
+        "id": "0x2a735e272cb9871d3a0748036f559edb7dcad48ea14177312541a76a10a61331",
+        "market": "SPY",
+        "collateralToken": "0x8AA9061c1f9F9e5D0062181e581B025896db9f72",
+        "oracle": "0xc513394e6516E553Ee7Cf1aEa6CdF879e6Fb0649",
+        "lltv": 625000000000000000,
+        "maturity": 1799798400,
+        "seedOffer": 3,
+        "seedPrice": 975000000000000000
+      },
+      "SGOV-90D": {
+        "id": "0x0cc29cd854de56f0ab241d95b3960b58d4255d2b1c3b539eef535095025c5345",
+        "market": "SGOV",
+        "collateralToken": "0x6cdC95079131B067fF5760915CA197B2bDb8e704",
+        "oracle": "0x390F044c7e02Cb7ba32a1CA4793421A5428a154d",
+        "lltv": 860000000000000000,
+        "maturity": 1799798400,
+        "seedOffer": 4,
+        "seedPrice": 985000000000000000
+      }
+    },
+    "market": "0xd1a9870790D3D0defC29Dbd97D7aA4675F7972B4"
+  },
+  "token": {
+    "netlend": "0x164654C70B6b65dDe6714F596a9DB8c639813cBC",
+    "staking": "0x81f6b0727d6D23603F333f5646a9D1209274371D",
+    "splitter": "0x38aF9C9326b032bF8C19f9f7514a53339C1bc466"
+  }
 }
