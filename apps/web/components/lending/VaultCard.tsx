@@ -71,7 +71,7 @@ export function VaultCard({ v, initialMode = "deposit" }: { v: VaultRow; initial
           </div>
           <StatusChip tone={RISK_TONE[v.risk as keyof typeof RISK_TONE] ?? "neutral"}>{v.risk === "aggressive" ? "Higher risk" : "Conservative"}</StatusChip>
         </div>
-        <div className="grid grid-cols-2 gap-4 tablet:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-3">
           <MetricTile label="Supply APY" value={pct(v.apy)} sub="Variable" />
           <MetricTile label="Total supplied" value={v.assetSymbol === "USDG" ? money(v.tvl) : `${tokenAmount(v.tvl, 4)} WETH`} />
           <MetricTile label="Allocated" value={v.assetSymbol === "USDG" ? money(v.allocated) : `${tokenAmount(v.allocated, 4)} WETH`} sub="Lent to markets" />

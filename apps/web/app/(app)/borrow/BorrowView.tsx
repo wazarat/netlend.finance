@@ -31,7 +31,7 @@ export function BorrowView() {
     <>
       <h1 className="t-h1">Markets</h1>
       <p className="nl-muted mt-1.5 mb-6">Supply to earn, or borrow against your collateral. Every market is isolated, with its oracle, liquidation LTV and cap fixed on chain.</p>
-      <div className="nl-card grid grid-cols-2 gap-6 tablet:grid-cols-3 mb-6">
+      <div className="nl-card grid grid-cols-1 gap-6 tablet:grid-cols-3 mb-6">
         <MetricTile label="Total supplied" loading={stats.isLoading} value={stats.data ? (deployed ? money(stats.data.totalSupplied) : "Coming soon") : undefined} sub="USDG markets" />
         <MetricTile label="Total borrowed" loading={stats.isLoading} value={stats.data ? (deployed ? money(stats.data.totalBorrowed) : "Coming soon") : undefined} sub="USDG markets" />
         <MetricTile label="Markets" loading={stats.isLoading} value={stats.data ? String(stats.data.activeMarkets) : undefined} />

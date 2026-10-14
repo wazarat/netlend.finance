@@ -69,7 +69,7 @@ export function PortfolioView() {
   return (
     <>
       <h1 className="t-h1 mb-6">Portfolio</h1>
-      <div className="nl-card grid grid-cols-2 gap-6 desktop:grid-cols-4 mb-8">
+      <div className="nl-card grid grid-cols-1 gap-6 tablet:grid-cols-2 desktop:grid-cols-4 mb-8">
         <MetricTile label="Supplied to vaults" loading={loading} value={money(suppliedUsd)} sub="USDG vaults" />
         <MetricTile label="Collateral" loading={loading} value={money(collateralUsd)} sub="USDG markets" />
         <MetricTile label="Borrowed" loading={loading} value={money(debtUsd)} sub="USDG markets" />

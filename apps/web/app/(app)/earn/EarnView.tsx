@@ -17,7 +17,7 @@ export function EarnView() {
     <>
       <h1 className="t-h1">Earn</h1>
       <p className="nl-muted mt-1.5 mb-6">Supply USDG or WETH to a curated vault. One position per vault, allocated across isolated markets with every parameter published on chain.</p>
-      <div className="nl-card grid grid-cols-2 gap-6 tablet:grid-cols-3 mb-6">
+      <div className="nl-card grid grid-cols-1 gap-6 tablet:grid-cols-3 mb-6">
         <MetricTile label="USDG supplied" loading={vaults.isLoading} value={vaults.data ? (deployed ? money(vaults.data.totals.tvlUsdg) : "Coming soon") : undefined} />
         <MetricTile label="WETH supplied" loading={vaults.isLoading} value={vaults.data ? (deployed ? `${tokenAmount(vaults.data.totals.tvlWeth, 4)} WETH` : "Coming soon") : undefined} />
         <MetricTile label="Vaults" loading={vaults.isLoading} value={vaults.data ? String(vaults.data.vaults.length) : undefined} />
