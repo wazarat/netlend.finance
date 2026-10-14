@@ -10,6 +10,7 @@ import FixedTermMarketJson from "../abis/FixedTermMarket.json" with { type: "jso
 import NetlendTokenJson from "../abis/NetlendToken.json" with { type: "json" };
 import StakingRewardsJson from "../abis/StakingRewards.json" with { type: "json" };
 import RevenueSplitterJson from "../abis/RevenueSplitter.json" with { type: "json" };
+import MarketHoursFeedJson from "../abis/MarketHoursFeed.json" with { type: "json" };
 
 /** Full ABIs exported by scripts/export-abis.sh (used by the server-side readers). */
 export const IMorpho = IMorphoJson as readonly unknown[];
@@ -23,6 +24,7 @@ export const FixedTermMarket = FixedTermMarketJson as readonly unknown[];
 export const NetlendToken = NetlendTokenJson as readonly unknown[];
 export const StakingRewards = StakingRewardsJson as readonly unknown[];
 export const RevenueSplitter = RevenueSplitterJson as readonly unknown[];
+export const MarketHoursFeed = MarketHoursFeedJson as readonly unknown[];
 
 /** Minimal typed fragments for the browser (wagmi hooks infer argument types from these). */
 export const erc20Abi = parseAbi([
@@ -54,4 +56,12 @@ export const morphoAbi = parseAbi([
 export const faucetAbi = parseAbi([
   "function claim()",
   "function lastClaim(address) view returns (uint256)",
+]);
+
+/** PublicAllocator: anyone moves vault liquidity into the market they are about to borrow from, within the caps. */
+export const publicAllocatorAbi = parseAbi([
+  "struct MarketParams { address loanToken; address collateralToken; address oracle; address irm; uint256 lltv; }",
+  "struct Withdrawal { MarketParams marketParams; uint128 amount; }",
+  "function reallocateTo(address vault, Withdrawal[] withdrawals, MarketParams supplyMarketParams) payable",
+  "function fee(address vault) view returns (uint256)",
 ]);

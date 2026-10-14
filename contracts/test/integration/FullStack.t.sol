@@ -12,6 +12,7 @@ import {AggregatorV3Interface} from "morpho-blue-oracles/morpho-chainlink/librar
 import {IERC4626} from "morpho-blue-oracles/morpho-chainlink/libraries/VaultLib.sol";
 import {IMetaMorphoV1_1Factory} from "metamorpho/interfaces/IMetaMorphoV1_1Factory.sol";
 import {IMetaMorphoV1_1} from "metamorpho/interfaces/IMetaMorphoV1_1.sol";
+import {IPublicAllocatorMin, PAWithdrawal, PAFlowCapsConfig, PAFlowCaps, PA_MAX_SETTABLE_FLOW_CAP} from "../../script/lib/PublicAllocatorTypes.sol";
 
 import {MockUSDG} from "../../src/mocks/MockUSDG.sol";
 import {MockStockToken} from "../../src/mocks/MockStockToken.sol";
@@ -74,6 +75,7 @@ contract FullStackTest is Test {
     MarketParams tslaMarket;
     MarketParams ponsMarket;
     IMetaMorphoV1_1 vault;
+    IPublicAllocatorMin pa;
     MarketGuard guard;
     address uniFactory;
     address npm;
@@ -140,6 +142,13 @@ contract FullStackTest is Test {
         vault.setSupplyQueue(queue);
         vault.setFeeRecipient(owner);
         vault.setFee(0.1e18);
+        // Deploy05b_FlowCaps: the PublicAllocator is an allocator with open flow caps on both markets
+        pa = IPublicAllocatorMin(Upstream.publicAllocator(address(morpho)));
+        vault.setIsAllocator(address(pa), true);
+        PAFlowCapsConfig[] memory cfg = new PAFlowCapsConfig[](2);
+        cfg[0] = PAFlowCapsConfig(tslaMarket.id(), PAFlowCaps(PA_MAX_SETTABLE_FLOW_CAP, PA_MAX_SETTABLE_FLOW_CAP));
+        cfg[1] = PAFlowCapsConfig(ponsMarket.id(), PAFlowCaps(PA_MAX_SETTABLE_FLOW_CAP, PA_MAX_SETTABLE_FLOW_CAP));
+        pa.setFlowCaps(address(vault), cfg);
         vault.setCurator(address(guard));
         vault.submitTimelock(1 days);
 
@@ -200,6 +209,41 @@ contract FullStackTest is Test {
         _borrow(10e18, 2_000e6); // 10 TSLA @ 430 = 4,300; LTV 46.5%
         assertEq(usdg.balanceOf(borrower), 2_000e6);
         assertEq(vault.maxWithdraw(lender), 18_000e6, "withdrawable = supplied - borrowed");
+    }
+
+    function test_public_allocator_pulls_liquidity_into_the_borrow_market() public {
+        _supply(20_000e6); // everything lands in TSLA, first in the supply queue; PONS has nothing to lend
+        assertEq(morpho.market(ponsMarket.id()).totalSupplyAssets, 0);
+
+        // The borrower (anyone) moves 5,000 USDG TSLA -> PONS through the PublicAllocator, fee 0, within the PONS cap.
+        PAWithdrawal[] memory w = new PAWithdrawal[](1);
+        w[0] = PAWithdrawal(tslaMarket, 5_000e6);
+        vm.prank(borrower);
+        pa.reallocateTo(address(vault), w, ponsMarket);
+        assertEq(morpho.market(ponsMarket.id()).totalSupplyAssets, 5_000e6, "pulled into PONS");
+        assertEq(morpho.market(tslaMarket.id()).totalSupplyAssets, 15_000e6, "taken from TSLA");
+        assertEq(vault.totalAssets(), 20_000e6, "vault unchanged");
+
+        // and the borrow that needed it goes through: 10,000 mPONS @ 0.05 = 500 USDG, LLTV 38.5% -> borrow 150
+        pons.mint(borrower, 10_000e18);
+        vm.startPrank(borrower);
+        pons.approve(address(morpho), 10_000e18);
+        morpho.supplyCollateral(ponsMarket, 10_000e18, borrower, "");
+        morpho.borrow(ponsMarket, 150e6, 0, borrower, borrower);
+        vm.stopPrank();
+        assertEq(usdg.balanceOf(borrower), 150e6);
+
+        // a second pull of 15,000 stays under the 25,000 PONS cap; pulling 20,000 back out of PONS fails because
+        // 150 of it is lent, so the vault can only withdraw 19,850 (MetaMorpho NotEnoughLiquidity).
+        w[0].amount = 15_000e6;
+        vm.prank(borrower);
+        pa.reallocateTo(address(vault), w, ponsMarket);
+        assertEq(morpho.market(ponsMarket.id()).totalSupplyAssets, 20_000e6);
+        PAWithdrawal[] memory back = new PAWithdrawal[](1);
+        back[0] = PAWithdrawal(ponsMarket, 20_000e6);
+        vm.prank(borrower);
+        vm.expectRevert();
+        pa.reallocateTo(address(vault), back, tslaMarket);
     }
 
     function test_borrow_above_lltv_reverts() public {

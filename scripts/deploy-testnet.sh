@@ -46,6 +46,7 @@ run Deploy02b_Uniswap
 run Deploy03_Oracles
 run Deploy04_Markets
 run Deploy05_Vaults
+run Deploy05b_FlowCaps
 run Deploy06_Fixed
 run Deploy07_Token
 echo "== address book"

@@ -1,4 +1,5 @@
-import type { AddressBook, MarketRow, Stats, VaultsResponse } from "@netlend/sdk";
+import type { AddressBook, MarketRow, Stats, VaultRow, VaultsResponse } from "@netlend/sdk";
+import type { BorrowPlanResponse } from "./server";
 
 async function get<T>(path: string): Promise<T> {
   const r = await fetch(path);
@@ -11,6 +12,8 @@ export const api = {
   markets: () => get<MarketRow[]>("/api/markets"),
   market: (key: string) => get<MarketRow>(`/api/markets/${encodeURIComponent(key)}`),
   vaults: () => get<VaultsResponse>("/api/v2/vaults"),
+  vault: (key: string) => get<VaultRow>(`/api/v2/vaults/${encodeURIComponent(key)}`),
   stats: () => get<Stats>("/api/stats"),
   addresses: () => get<AddressBook>("/api/addresses"),
+  borrowPlan: (market: string, amount: string) => get<BorrowPlanResponse>(`/api/borrow-plan?market=${encodeURIComponent(market)}&amount=${encodeURIComponent(amount)}`),
 };

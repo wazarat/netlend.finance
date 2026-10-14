@@ -1,5 +1,5 @@
 import { formatUnits, type Address, type PublicClient } from "viem";
-import { IIrm, IMorpho, IOracle } from "../abis";
+import { IIrm, IMorpho, IOracle, MarketHoursFeed } from "../abis";
 import type { AddressBook, MarketRow, Registry } from "../types";
 import { multiRead } from "./multiRead";
 
@@ -65,9 +65,23 @@ export async function readMarkets(client: PublicClient, book: AddressBook, regis
     }),
   );
 
+  // 24/5 stock-token feeds sit behind a MarketHoursFeed with isOpen(); other feeds fail the call and read as null.
+  const feedOf = (k: string): Address | undefined => {
+    const r = registry.markets.find((x) => x.key === k);
+    return r ? (book.substitutes?.feeds?.[r.collateral] as Address | undefined) : undefined;
+  };
+  const hoursKeys = keys.filter((k) => feedOf(k));
+  const hours = await multiRead(
+    client,
+    book,
+    hoursKeys.map((k) => ({ address: feedOf(k) as Address, abi: MarketHoursFeed, functionName: "isOpen" })),
+  );
+
   return keys.map((k, i) => {
     const m = book.markets[k];
     const r = registry.markets.find((x) => x.key === k);
+    const hi = hoursKeys.indexOf(k);
+    const tradingOpen = hi >= 0 && hours[hi].status === "success" ? (hours[hi].result as boolean) : null;
     const mk = first[i * 2].status === "success" ? asMarket(first[i * 2].result) : null;
     const px = first[i * 2 + 1].status === "success" ? (first[i * 2 + 1].result as bigint) : 0n;
     const rate = rates[i].status === "success" ? (rates[i].result as bigint) : 0n;
@@ -110,11 +124,20 @@ export async function readMarkets(client: PublicClient, book: AddressBook, regis
       utilization,
       availableToBorrow: available,
       available,
+      reallocatable: 0,
       borrowAPR,
       supplyAPR,
       cap: Number(formatUnits(BigInt(m.cap), loanDec)),
       enabled: true,
+      tripped: false,
+      tradingOpen,
       fee,
+      raw: {
+        totalSupplyAssets: (mk?.totalSupplyAssets ?? 0n).toString(),
+        totalSupplyShares: (mk?.totalSupplyShares ?? 0n).toString(),
+        totalBorrowAssets: (mk?.totalBorrowAssets ?? 0n).toString(),
+        totalBorrowShares: (mk?.totalBorrowShares ?? 0n).toString(),
+      },
     };
   });
 }

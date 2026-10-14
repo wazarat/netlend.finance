@@ -7,6 +7,13 @@ const CATEGORY_LABEL: Record<string, string> = { Stocks: "Tokenized stock", RWA:
 
 type Props = { markets: MarketRow[] | undefined; loading?: boolean; compact?: boolean; emptyText?: string };
 
+/** One word for the market's state: watchdog cap, 24/5 feed closed, or active. Shared with the market page. */
+export function marketStatus(m: MarketRow): { tone: "positive" | "warning" | "neutral"; text: string } {
+  if (m.tripped) return { tone: "warning", text: "Capped" };
+  if (m.tradingOpen === false) return { tone: "neutral", text: "Market closed" };
+  return { tone: "positive", text: "Active" };
+}
+
 /** Markets as a table on desktop and as cards under 720px. Rows link to the market page. */
 export function MarketsTable({ markets, loading, compact, emptyText = "Markets open once the contracts are on testnet." }: Props) {
   const rows = markets ?? [];
@@ -42,29 +49,37 @@ export function MarketsTable({ markets, loading, compact, emptyText = "Markets o
           </tr>
         )}
         {!loading &&
-          rows.map((m) => (
-            <tr key={m.key}>
-              <td className="nl-primary">
-                <span className="nl-token">
-                  <TokenDot symbol={m.key} />
-                  <Link href={`/borrow/${encodeURIComponent(m.key)}`} className="nl-row-link">
-                    {m.name}
-                  </Link>
-                </span>
-                <span className="nl-sub">{CATEGORY_LABEL[m.category] ?? m.category} · {m.oracleLabel}</span>
-              </td>
-              <td className="nl-r" data-label="Total supplied">{amountIn(m.totalSupply, m.loan)}</td>
-              <td className="nl-r" data-label="Supply APY">{pct(m.supplyAPR)}</td>
-              <td className="nl-r" data-label="Borrow APY">{pct(m.borrowAPR)}</td>
-              {!compact && <td className="nl-r" data-label="Available">{amountIn(m.availableToBorrow, m.loan)}</td>}
-              <td className="nl-r" data-label="Max LTV">{pct(m.lltv, 1)}</td>
-              {!compact && (
-                <td className="nl-r" data-label="Status">
-                  <StatusChip tone={m.enabled ? "positive" : "warning"} size="sm">{m.enabled ? "Active" : "Paused"}</StatusChip>
+          rows.map((m) => {
+            const s = marketStatus(m);
+            return (
+              <tr key={m.key}>
+                <td className="nl-primary">
+                  <span className="nl-token">
+                    <TokenDot symbol={m.key} />
+                    <Link href={`/borrow/${encodeURIComponent(m.key)}`} className="nl-row-link">
+                      {m.name}
+                    </Link>
+                  </span>
+                  <span className="nl-sub">{CATEGORY_LABEL[m.category] ?? m.category} · {m.oracleLabel}</span>
                 </td>
-              )}
-            </tr>
-          ))}
+                <td className="nl-r" data-label="Total supplied">{amountIn(m.totalSupply, m.loan)}</td>
+                <td className="nl-r" data-label="Supply APY">{pct(m.supplyAPR)}</td>
+                <td className="nl-r" data-label="Borrow APY">{pct(m.borrowAPR)}</td>
+                {!compact && (
+                  <td className="nl-r" data-label="Available">
+                    {amountIn(m.availableToBorrow, m.loan)}
+                    {m.reallocatable > 0 && <span className="nl-sub">+{amountIn(m.reallocatable, m.loan)} via vaults</span>}
+                  </td>
+                )}
+                <td className="nl-r" data-label="Max LTV">{pct(m.lltv, 1)}</td>
+                {!compact && (
+                  <td className="nl-r" data-label="Status">
+                    <StatusChip tone={s.tone} size="sm">{s.text}</StatusChip>
+                  </td>
+                )}
+              </tr>
+            );
+          })}
       </tbody>
     </table>
   );

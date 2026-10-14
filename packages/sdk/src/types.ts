@@ -87,6 +87,14 @@ export type Registry = {
   vaults: RegistryVault[];
 };
 
+/** Morpho market totals in base units, as decimal strings so they survive JSON. */
+export type MarketRaw = {
+  totalSupplyAssets: string;
+  totalSupplyShares: string;
+  totalBorrowAssets: string;
+  totalBorrowShares: string;
+};
+
 /** A market as served by /api/markets (Longbow-shaped, all figures already human units). */
 export type MarketRow = {
   key: string;
@@ -111,15 +119,25 @@ export type MarketRow = {
   totalSupply: number;
   totalBorrow: number;
   utilization: number;
+  /** Liquidity sitting in the market right now. */
   availableToBorrow: number;
   available: number;
+  /** Extra liquidity a borrower can pull into this market through the PublicAllocator before borrowing. */
+  reallocatable: number;
   borrowAPR: number;
   supplyAPR: number;
   cap: number;
+  /** False when a vault's watchdog has capped this market to zero. */
   enabled: boolean;
+  /** Any vault's MarketGuard trip flag for this market. */
+  tripped: boolean;
+  /** 24/5 feed state: true/false for stock-token markets behind a MarketHoursFeed, null for 24/7 markets. */
+  tradingOpen: boolean | null;
   fee: number;
+  raw: MarketRaw;
 };
 
+/** One market inside a vault: what the vault has lent there, its cap, and what the PublicAllocator may move. */
 export type VaultMarketRow = {
   key: string;
   marketId?: Hex32;
@@ -129,9 +147,23 @@ export type VaultMarketRow = {
   symbol: string;
   collateralAddress?: Address;
   hidden: boolean;
+  /** Vault assets supplied to this market. */
+  allocated: number;
+  /** Market liquidity (supply minus borrow), the most the vault could withdraw from it right now. */
+  marketLiquidity: number;
+  /** Vault config for the market. */
+  enabled: boolean;
+  removableAt: number;
+  pendingCap?: { cap: number; validAt: number };
+  /** MarketGuard trip flag for (vault, market). */
+  tripped: boolean;
+  /** PublicAllocator flow caps in asset units. */
+  flowCaps: { maxIn: number; maxOut: number };
+  /** Base-unit figures as decimal strings for the borrow planner. */
+  raw: { allocated: string; liquidity: string; cap: string; maxIn: string; maxOut: string };
 };
 
-/** A vault as served by /api/v2/vaults. */
+/** A vault as served by /api/v2/vaults and /api/v2/vaults/:key. */
 export type VaultRow = {
   key: string;
   slug: string;
@@ -153,10 +185,23 @@ export type VaultRow = {
   performanceFee: number;
   feeRecipient: Address;
   curator: Address;
+  owner: Address;
+  guardian: Address;
+  skimRecipient: Address;
   timelockSeconds: number;
+  pendingTimelock?: { seconds: number; validAt: number };
+  pendingGuardian?: { address: Address; validAt: number };
+  lostAssets: number;
   marketCount: number;
   markets: VaultMarketRow[];
+  /** Sum of `markets[].allocated`. */
   allocated: number;
+  /** Assets the vault holds outside any market (normally ~0 on MetaMorpho v1.1 without an idle market). */
+  idle: number;
+  /** Market keys in supply-queue and withdraw-queue order. */
+  supplyQueue: string[];
+  withdrawQueue: string[];
+  publicAllocator: { address?: Address; isAllocator: boolean; admin?: Address; fee: string };
 };
 
 export type VaultsResponse = {
@@ -178,4 +223,23 @@ export type Stats = {
   activeMarkets: number;
   topSupplyAPR: number;
   wethSupplied: number;
+};
+
+export type MarketParamsStruct = { loanToken: Address; collateralToken: Address; oracle: Address; irm: Address; lltv: string };
+
+/** How to pull liquidity into a market before borrowing: one PublicAllocator.reallocateTo call. */
+export type BorrowPlan = {
+  market: string;
+  /** Base units the borrower asked for beyond what the market holds. */
+  deficit: string;
+  /** Base units the plan actually moves (may be below `deficit`). */
+  moves: string;
+  covers: boolean;
+  vaultKey: string;
+  vault: Address;
+  publicAllocator: Address;
+  /** Wei the PublicAllocator charges for this vault (msg.value). */
+  fee: string;
+  withdrawals: Array<{ key: string; marketParams: MarketParamsStruct; amount: string }>;
+  supplyMarketParams: MarketParamsStruct;
 };

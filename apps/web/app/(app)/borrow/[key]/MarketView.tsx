@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { amountIn, money, pct, price as fmtPrice, registry } from "@netlend/sdk";
 import { Button, CopyAddress, Skeleton, StatusChip, TokenDot } from "@/components/ui";
 import { MarketPanel, MARKET_MODES, type MarketMode } from "@/components/lending";
+import { marketStatus } from "@/components/lending/MarketsTable";
 import { addressUrl, deployed } from "@/config/chain";
 import { useMarket } from "@/lib/data/queries";
 
@@ -32,6 +33,7 @@ export function MarketView({ marketKey }: { marketKey: string }) {
 
   const name = m?.name ?? reg?.name ?? marketKey;
   const category = m?.category ?? reg?.category ?? "";
+  const status = m ? marketStatus(m) : null;
 
   return (
     <>
@@ -41,12 +43,22 @@ export function MarketView({ marketKey }: { marketKey: string }) {
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <TokenDot symbol={marketKey} size="lg" />
         <h1 className="t-h1">{name}</h1>
-        {m ? <StatusChip tone={m.enabled ? "positive" : "warning"}>{m.enabled ? "Active" : "Paused"}</StatusChip> : !market.isLoading && <StatusChip tone="neutral">Coming soon</StatusChip>}
+        {status ? <StatusChip tone={status.tone}>{status.text}</StatusChip> : !market.isLoading && <StatusChip tone="neutral">Coming soon</StatusChip>}
         <span className="t-body-sm nl-muted">{CATEGORY_LABEL[category] ?? category}</span>
       </div>
 
       <div className="nl-market-layout">
         <div className="nl-stack" style={{ gap: "var(--space-5)" }}>
+          {m?.tradingOpen === false && (
+            <div className="nl-notice nl-notice--neutral">
+              Stock market closed. The 24/5 feed holds the last print until trading reopens, so the collateral price above is Friday&apos;s close. Borrowing, repaying and liquidations keep working against that frozen price; expect a gap when the market reopens.
+            </div>
+          )}
+          {m?.tripped && (
+            <div className="nl-notice nl-notice--warning">
+              Capped by the watchdog. A vault&apos;s cap for this market was cut to zero after an oracle check, so vaults stop adding liquidity here. Borrowing is limited to what is already in the market; repay and withdraw are unaffected.
+            </div>
+          )}
           <section className="nl-card" aria-labelledby="facts">
             <h2 id="facts" className="t-h3 mb-4">Market facts</h2>
             {market.isLoading && <Skeleton width="60%" height="20px" />}
@@ -67,14 +79,14 @@ export function MarketView({ marketKey }: { marketKey: string }) {
                 <Fact label="Total supplied" value={amountIn(m.totalSupply, m.loan)} />
                 <Fact label="Total borrowed" value={amountIn(m.totalBorrow, m.loan)} />
                 <Fact label="Utilisation" value={pct(m.utilization)} />
-                <Fact label="Available to borrow" value={amountIn(m.availableToBorrow, m.loan)} />
+                <Fact label="In the market now" value={amountIn(m.availableToBorrow, m.loan)} />
+                <Fact label="Pullable from vaults" value={amountIn(m.reallocatable, m.loan)} />
                 <Fact label="Supply cap" value={amountIn(m.cap, m.loan)} />
                 <Fact label="Supply APY" value={`${pct(m.supplyAPR)} variable`} />
                 <Fact label="Borrow APY" value={`${pct(m.borrowAPR)} variable`} />
                 <Fact label="Liquidation LTV" value={pct(m.lltv, 1)} />
                 <Fact label="Oracle" value={m.oracleLabel} />
                 <Fact label="Rate model" value={m.irm} />
-                <Fact label="Protocol fee" value={pct(m.fee, 0)} />
               </dl>
             )}
           </section>

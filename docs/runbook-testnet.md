@@ -17,6 +17,7 @@ COMMON="--rpc-url $RH_RPC_URL --broadcast --verify --verifier blockscout --verif
 | 3 | `forge script script/Deploy03_Oracles.s.sol $COMMON` | one Morpho oracle per market (feed pair or 30-min TWAP) | 2, 2b; TWAP needs ≥ 30 min since pool init |
 | 4 | `forge script script/Deploy04_Markets.s.sol $COMMON` | 11 isolated markets, writes `markets.<KEY>` | 3 |
 | 5 | `forge script script/Deploy05_Vaults.s.sol $COMMON` | MarketGuard + Core / Frontier / ETH vaults with caps, 10 % fee, guardian, 1-day timelock | 4 |
+| 5b | `forge script script/Deploy05b_FlowCaps.s.sol $COMMON` | PublicAllocator flow caps opened on every vault market, fee 0, so borrowers can pull vault liquidity into their market | 3 |
 | 6 | `forge script script/Deploy06_Fixed.s.sol $COMMON` | FixedTermMarket + 4 fixed-term USDG markets (TSLA-30D, ETH-30D, SPY-90D, SGOV-90D) with a seed lender offer each | 3 |
 | 7 | `forge script script/Deploy07_Token.s.sol $COMMON` | NETLEND stand-in token, StakingRewards, RevenueSplitter; vault fee recipients → splitter; faucet drips 1,000 NETLEND; first 1,000 USDG reward stream | 5 |
 
@@ -45,3 +46,13 @@ forge verify-contract <addr> src/mocks/MockUSDG.sol:MockUSDG --chain-id 46630 \
 - canhav: propose `stage: testnet_deployed` and `testnetContracts` (Morpho, MetaMorpho factory, the three vaults,
   FixedTermMarket, NETLEND, StakingRewards, faucet, USDG; max 10 addresses). `verifyWallet` (the deployer) and `githubRepo` were proposed on
   2026-10-14 (change 276d7907…).
+
+## Liquidity routing (Deploy05b_FlowCaps)
+
+A MetaMorpho deposit fills only the first market in the vault's supply queue. `Deploy05b_FlowCaps` (run by
+`scripts/deploy-testnet.sh`, idempotent) opens PublicAllocator flow caps (maxIn = maxOut = max) on every market each
+vault lists, fee 0. From then on anyone can call `PublicAllocator.reallocateTo(vault, withdrawals, targetMarket)` to
+pull liquidity into the market they borrow from, within the vault caps. The Borrow page does this as step 1 of 2 when
+the entered amount exceeds the market's free liquidity (`GET /api/borrow-plan?market=KEY&amount=X` builds the call).
+Opened on 46630 on 2026-10-14 (core 7, frontier 3, eth 2 markets).
+

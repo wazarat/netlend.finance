@@ -28,6 +28,7 @@ cast rpc evm_increaseTime 1900 --rpc-url "$RPC" >/dev/null; cast rpc evm_mine --
 run Deploy03_Oracles
 run Deploy04_Markets
 run Deploy05_Vaults
+run Deploy05b_FlowCaps
 run Deploy06_Fixed
 run Deploy07_Token
 echo "== address book"
