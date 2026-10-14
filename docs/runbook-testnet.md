@@ -33,5 +33,9 @@ forge verify-contract <addr> src/mocks/MockUSDG.sol:MockUSDG --chain-id 46630 \
 ```
 
 ## After deployment
-- `pnpm sdk:gen` regenerates ABIs for web/api/mcp.
-- Update canhav: `stage: testnet_deployed`, `testnetContracts` (Morpho, vaults, guard, faucet…), `verifyWallet`.
+- `scripts/export-abis.sh` regenerates `packages/sdk/abis/*.json` if any contract interface changed.
+- Commit `packages/sdk/addresses.46630.json`; Vercel rebuilds `apps/web` on push and the site switches from
+  "Coming soon" to live figures (env `NEXT_PUBLIC_CHAIN=46630` is already set on the project).
+- canhav: propose `stage: testnet_deployed` and `testnetContracts` (Morpho, MetaMorpho factory, the three vaults,
+  MarketGuard, faucet, USDG; max 10 addresses). `verifyWallet` (the deployer) and `githubRepo` were proposed on
+  2026-10-14 (change 276d7907…).

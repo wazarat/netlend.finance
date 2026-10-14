@@ -109,7 +109,8 @@ a { color: inherit; }
 .nl-stack { display: flex; flex-direction: column; gap: var(--space-2); }
 .nl-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
 .nl-divider { height: 1px; background: var(--border); border: 0; margin: 0; }
-.nl-market-layout { display: grid; gap: var(--space-5); align-items: start; }
+.nl-market-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-5); align-items: start; }
+.nl-market-layout > * { min-width: 0; }
 @media (min-width: 960px) { .nl-market-layout { grid-template-columns: minmax(0, 1fr) var(--panel-width); } .nl-sticky { position: sticky; top: calc(var(--header-height) + var(--space-5)); } }
 
 /* Button */
@@ -150,7 +151,7 @@ a.nl-card:hover { border-color: var(--border-control); }
 /* Metric tile */
 .nl-metric { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
 .nl-metric__label { font-size: 13px; line-height: 20px; color: var(--ink-muted); }
-.nl-metric__value { font: 600 28px/34px var(--font-display); letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nl-metric__value { font: 600 28px/34px var(--font-display); letter-spacing: -0.01em; color: var(--ink); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .nl-metric__sub { font-size: 13px; line-height: 20px; color: var(--ink-muted); }
 
 /* Skeleton */
@@ -220,6 +221,8 @@ a.nl-card:hover { border-color: var(--border-control); }
 .nl-logo--light { display: block; } .nl-logo--dark { display: none; } .nl-logo--mark { display: none; }
 [data-theme="dark"] .nl-logo--light { display: none; } [data-theme="dark"] .nl-logo--dark { display: block; }
 @media (max-width: 719px) { .nl-logo--full { display: none !important; } .nl-logo--mark { display: block; } }
+/* The mark is green ink; on a dark ground it sits in a soft-stone tile, as the reverse lockup does. */
+[data-theme="dark"] .nl-logo--mark { background: var(--soft-stone); border-radius: 6px; padding: 3px 2px; box-sizing: content-box; }
 .nl-nav { display: flex; gap: 4px; overflow-x: auto; min-width: 0; flex: 1; scrollbar-width: none; }
 .nl-nav::-webkit-scrollbar { display: none; }
 @media (min-width: 720px) { .nl-nav { flex: none; } }
@@ -234,7 +237,7 @@ a.nl-card:hover { border-color: var(--border-control); }
 @media (max-width: 959px) { .nl-panel { max-width: none; } }
 .nl-kv { display: flex; justify-content: space-between; gap: var(--space-3); font-size: 13px; line-height: 20px; margin: 0; }
 .nl-kv dt { color: var(--ink-muted); }
-.nl-kv dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; text-align: right; }
+.nl-kv dd { margin: 0; color: var(--ink); font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
 .nl-notice { padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: 13px; line-height: 20px; }
 .nl-notice--warning { background: var(--warning-soft); color: var(--warning); }
 .nl-notice--negative { background: var(--negative-soft); color: var(--negative); }
