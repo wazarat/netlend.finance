@@ -1,0 +1,21 @@
+{
+  "probedAt": "2026-10-14",
+  "chainId": 46630,
+  "blockNumber": 135114010,
+  "present": {
+    "weth": "0x7943e237c7F95DA44E0301572D358911207852Fa",
+    "multicallL2": "0xa432504b6F04Cafe775b09D8AA92e8dbe41Ec7a8",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "permit2": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+    "createX": "0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed",
+    "erc6551Registry": "0x000000006551c19487814612e58FE06813775758"
+  },
+  "absent": {
+    "morphoCanonical": "0xBBBBBbbBBb9cC5e90e3b3Af64bdAF62C37EEFFCb",
+    "morphoRobinhoodMainnet": "0x9D53d5E3bd5E8d4Cbfa6DB1ca238AEA02E651010",
+    "usdgRobinhoodMainnet": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+    "uniswapV3FactoryCanonical": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+    "uniswapSwapRouter02Canonical": "0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45"
+  },
+  "conclusion": "Deploy own Morpho Blue + IRM + oracle factory + MetaMorpho + Bundler3, mock USDG/stock tokens/feeds, and a minimal Uniswap v3. Reuse WETH, Multicall3, Permit2, ERC-6551 registry."
+}

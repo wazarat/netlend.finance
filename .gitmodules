@@ -1,0 +1,27 @@
+[submodule "contracts/lib/morpho-blue"]
+	path = contracts/lib/morpho-blue
+	url = https://github.com/morpho-org/morpho-blue
+[submodule "contracts/lib/metamorpho-v1.1"]
+	path = contracts/lib/metamorpho-v1.1
+	url = https://github.com/morpho-org/metamorpho-v1.1
+[submodule "contracts/lib/bundler3"]
+	path = contracts/lib/bundler3
+	url = https://github.com/morpho-org/bundler3
+[submodule "contracts/lib/morpho-blue-oracles"]
+	path = contracts/lib/morpho-blue-oracles
+	url = https://github.com/morpho-org/morpho-blue-oracles
+[submodule "contracts/lib/morpho-blue-irm"]
+	path = contracts/lib/morpho-blue-irm
+	url = https://github.com/morpho-org/morpho-blue-irm
+[submodule "contracts/lib/public-allocator"]
+	path = contracts/lib/public-allocator
+	url = https://github.com/morpho-org/public-allocator
+[submodule "contracts/lib/openzeppelin-contracts"]
+	path = contracts/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "contracts/lib/v3-core"]
+	path = contracts/lib/v3-core
+	url = https://github.com/Uniswap/v3-core
+[submodule "contracts/lib/v3-periphery"]
+	path = contracts/lib/v3-periphery
+	url = https://github.com/Uniswap/v3-periphery

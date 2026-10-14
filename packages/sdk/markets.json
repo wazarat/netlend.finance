@@ -1,0 +1,22 @@
+{
+  "_comment": "Market registry for netlend.finance on 46630. Tiers mirror Longbow: stocks 62.5% (Chainlink-style), ETH 77%, treasuries 86%, long-tail 38.5% (TWAP), short = USDG collateral / WETH loan (inverse feed).",
+  "lltvTiers": [0.385, 0.625, 0.77, 0.86, 0.915],
+  "markets": [
+    { "key": "ETH",   "name": "ETH / USDG",   "category": "Crypto", "collateral": "WETH",  "loan": "USDG", "oracleType": "chainlink", "feed": "ETH/USD",  "lltv": 0.77,  "capUsdg": 250000 },
+    { "key": "TSLA",  "name": "TSLA / USDG",  "category": "Stocks", "collateral": "rTSLA", "loan": "USDG", "oracleType": "chainlink", "feed": "TSLA/USD", "lltv": 0.625, "capUsdg": 100000 },
+    { "key": "NVDA",  "name": "NVDA / USDG",  "category": "Stocks", "collateral": "rNVDA", "loan": "USDG", "oracleType": "chainlink", "feed": "NVDA/USD", "lltv": 0.625, "capUsdg": 100000 },
+    { "key": "SPY",   "name": "SPY / USDG",   "category": "Stocks", "collateral": "rSPY",  "loan": "USDG", "oracleType": "chainlink", "feed": "SPY/USD",  "lltv": 0.625, "capUsdg": 100000 },
+    { "key": "AAPL",  "name": "AAPL / USDG",  "category": "Stocks", "collateral": "rAAPL", "loan": "USDG", "oracleType": "chainlink", "feed": "AAPL/USD", "lltv": 0.625, "capUsdg": 50000 },
+    { "key": "SGOV",  "name": "SGOV / USDG",  "category": "RWA",    "collateral": "rSGOV", "loan": "USDG", "oracleType": "chainlink", "feed": "SGOV/USD", "lltv": 0.86,  "capUsdg": 100000 },
+    { "key": "GLD",   "name": "GLD / USDG",   "category": "RWA",    "collateral": "rGLD",  "loan": "USDG", "oracleType": "chainlink", "feed": "GLD/USD",  "lltv": 0.625, "capUsdg": 50000 },
+    { "key": "PONS",  "name": "PONS / USDG",  "category": "Memes",  "collateral": "mPONS", "loan": "USDG", "oracleType": "twap",      "pool": "mPONS/USDG", "lltv": 0.385, "capUsdg": 25000 },
+    { "key": "CAT",   "name": "CAT / USDG",   "category": "Memes",  "collateral": "mCAT",  "loan": "USDG", "oracleType": "twap",      "pool": "mCAT/USDG",  "lltv": 0.385, "capUsdg": 10000 },
+    { "key": "SPY-WETH",  "name": "SPY / WETH",  "category": "Stocks", "collateral": "rSPY",  "loan": "WETH", "oracleType": "chainlink", "feed": "SPY/USD",  "quoteFeed": "ETH/USD", "lltv": 0.385, "capUsdg": 50000 },
+    { "key": "SHORT-ETH", "name": "Short ETH",   "category": "Short",  "collateral": "USDG",  "loan": "WETH", "oracleType": "inverse",   "feed": "ETH/USD",  "lltv": 0.625, "capUsdg": 50000, "isShort": true }
+  ],
+  "vaults": [
+    { "key": "core",     "name": "netlend USDG Core",     "symbol": "nlUSDG",  "asset": "USDG", "tier": "Flagship",     "risk": "conservative", "markets": ["ETH", "TSLA", "NVDA", "SPY", "AAPL", "SGOV", "GLD"] },
+    { "key": "frontier", "name": "netlend USDG Frontier", "symbol": "nlUSDGf", "asset": "USDG", "tier": "Higher yield", "risk": "aggressive",   "markets": ["PONS", "CAT", "ETH"] },
+    { "key": "eth",      "name": "netlend ETH",           "symbol": "nlETH",   "asset": "WETH", "tier": "ETH",          "risk": "conservative", "markets": ["SPY-WETH", "SHORT-ETH"] }
+  ]
+}

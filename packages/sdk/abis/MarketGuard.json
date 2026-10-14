@@ -1,0 +1,377 @@
+[
+ {
+  "type": "constructor",
+  "inputs": [
+   {
+    "name": "owner_",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "keepers",
+    "type": "address[]",
+    "internalType": "address[]"
+   }
+  ],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "forwardRevokePendingCap",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "contract IMetaMorphoV1_1"
+   },
+   {
+    "name": "id",
+    "type": "bytes32",
+    "internalType": "Id"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "forwardSubmitCap",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "contract IMetaMorphoV1_1"
+   },
+   {
+    "name": "params",
+    "type": "tuple",
+    "internalType": "struct MarketParams",
+    "components": [
+     {
+      "name": "loanToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "collateralToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "oracle",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "irm",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "lltv",
+      "type": "uint256",
+      "internalType": "uint256"
+     }
+    ]
+   },
+   {
+    "name": "newCap",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "forwardSubmitMarketRemoval",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "contract IMetaMorphoV1_1"
+   },
+   {
+    "name": "params",
+    "type": "tuple",
+    "internalType": "struct MarketParams",
+    "components": [
+     {
+      "name": "loanToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "collateralToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "oracle",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "irm",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "lltv",
+      "type": "uint256",
+      "internalType": "uint256"
+     }
+    ]
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "isKeeper",
+  "inputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "owner",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "setKeeper",
+  "inputs": [
+   {
+    "name": "k",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "allowed",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "setOwner",
+  "inputs": [
+   {
+    "name": "o",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "trip",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "contract IMetaMorphoV1_1"
+   },
+   {
+    "name": "params",
+    "type": "tuple",
+    "internalType": "struct MarketParams",
+    "components": [
+     {
+      "name": "loanToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "collateralToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "oracle",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "irm",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "lltv",
+      "type": "uint256",
+      "internalType": "uint256"
+     }
+    ]
+   },
+   {
+    "name": "reason",
+    "type": "string",
+    "internalType": "string"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "tripped",
+  "inputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "",
+    "type": "bytes32",
+    "internalType": "Id"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "bool",
+    "internalType": "bool"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "untrip",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "id",
+    "type": "bytes32",
+    "internalType": "Id"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "event",
+  "name": "KeeperSet",
+  "inputs": [
+   {
+    "name": "keeper",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "allowed",
+    "type": "bool",
+    "indexed": false,
+    "internalType": "bool"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "OwnerSet",
+  "inputs": [
+   {
+    "name": "owner",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "Tripped",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "market",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "Id"
+   },
+   {
+    "name": "reason",
+    "type": "string",
+    "indexed": false,
+    "internalType": "string"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "event",
+  "name": "Untripped",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "indexed": true,
+    "internalType": "address"
+   },
+   {
+    "name": "market",
+    "type": "bytes32",
+    "indexed": true,
+    "internalType": "Id"
+   }
+  ],
+  "anonymous": false
+ },
+ {
+  "type": "error",
+  "name": "NotKeeper",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "NotOwner",
+  "inputs": []
+ },
+ {
+  "type": "error",
+  "name": "StillTripped",
+  "inputs": []
+ }
+]

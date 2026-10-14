@@ -1,0 +1,293 @@
+[
+ {
+  "type": "function",
+  "name": "MORPHO",
+  "inputs": [],
+  "outputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "contract IMorpho"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "accruedFee",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "admin",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "fee",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "flowCaps",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "",
+    "type": "bytes32",
+    "internalType": "Id"
+   }
+  ],
+  "outputs": [
+   {
+    "name": "",
+    "type": "tuple",
+    "internalType": "struct FlowCaps",
+    "components": [
+     {
+      "name": "maxIn",
+      "type": "uint128",
+      "internalType": "uint128"
+     },
+     {
+      "name": "maxOut",
+      "type": "uint128",
+      "internalType": "uint128"
+     }
+    ]
+   }
+  ],
+  "stateMutability": "view"
+ },
+ {
+  "type": "function",
+  "name": "reallocateTo",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "withdrawals",
+    "type": "tuple[]",
+    "internalType": "struct Withdrawal[]",
+    "components": [
+     {
+      "name": "marketParams",
+      "type": "tuple",
+      "internalType": "struct MarketParams",
+      "components": [
+       {
+        "name": "loanToken",
+        "type": "address",
+        "internalType": "address"
+       },
+       {
+        "name": "collateralToken",
+        "type": "address",
+        "internalType": "address"
+       },
+       {
+        "name": "oracle",
+        "type": "address",
+        "internalType": "address"
+       },
+       {
+        "name": "irm",
+        "type": "address",
+        "internalType": "address"
+       },
+       {
+        "name": "lltv",
+        "type": "uint256",
+        "internalType": "uint256"
+       }
+      ]
+     },
+     {
+      "name": "amount",
+      "type": "uint128",
+      "internalType": "uint128"
+     }
+    ]
+   },
+   {
+    "name": "supplyMarketParams",
+    "type": "tuple",
+    "internalType": "struct MarketParams",
+    "components": [
+     {
+      "name": "loanToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "collateralToken",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "oracle",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "irm",
+      "type": "address",
+      "internalType": "address"
+     },
+     {
+      "name": "lltv",
+      "type": "uint256",
+      "internalType": "uint256"
+     }
+    ]
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "payable"
+ },
+ {
+  "type": "function",
+  "name": "setAdmin",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "newAdmin",
+    "type": "address",
+    "internalType": "address"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "setFee",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "newFee",
+    "type": "uint256",
+    "internalType": "uint256"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "setFlowCaps",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "config",
+    "type": "tuple[]",
+    "internalType": "struct FlowCapsConfig[]",
+    "components": [
+     {
+      "name": "id",
+      "type": "bytes32",
+      "internalType": "Id"
+     },
+     {
+      "name": "caps",
+      "type": "tuple",
+      "internalType": "struct FlowCaps",
+      "components": [
+       {
+        "name": "maxIn",
+        "type": "uint128",
+        "internalType": "uint128"
+       },
+       {
+        "name": "maxOut",
+        "type": "uint128",
+        "internalType": "uint128"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ },
+ {
+  "type": "function",
+  "name": "transferFee",
+  "inputs": [
+   {
+    "name": "vault",
+    "type": "address",
+    "internalType": "address"
+   },
+   {
+    "name": "feeRecipient",
+    "type": "address",
+    "internalType": "address payable"
+   }
+  ],
+  "outputs": [],
+  "stateMutability": "nonpayable"
+ }
+]

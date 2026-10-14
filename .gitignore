@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+contracts/out/
+contracts/cache/
+contracts/broadcast/**/dry-run/
+*.log
+.DS_Store
+tools/
+
+.next/
+.vercel
+next-env.d.ts
+*.tsbuildinfo
+.anvil-logs/

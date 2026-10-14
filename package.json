@@ -1,0 +1,16 @@
+{
+  "name": "netlend.finance",
+  "private": true,
+  "version": "0.0.1",
+  "description": "netlend.finance, a curated credit layer for Robinhood Chain testnet: earn, borrow, multiply, fixed, NFT, stake, flash loans and an MCP server.",
+  "scripts": {
+    "contracts:build": "cd contracts && forge build",
+    "contracts:test": "cd contracts && forge test",
+    "sdk:gen": "pnpm --filter @netlend/sdk gen",
+    "sdk:typecheck": "pnpm --filter @netlend/sdk typecheck",
+    "web:dev": "pnpm --filter @netlend/web dev",
+    "web:build": "pnpm --filter @netlend/web build"
+  },
+  "engines": { "node": ">=22" },
+  "packageManager": "pnpm@9.15.0"
+}
